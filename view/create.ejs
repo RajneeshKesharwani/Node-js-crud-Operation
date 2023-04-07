@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+            <!-- logo/brand name-->
+            <a href="/" class="navbar-brand">Address book</a>
+            <!-- right menu-->
+            <div class="d-flex justify-content-evenly">
+                <div class="form-check form-switch me-3 mt-2">
+                    <input type="checkbox" name="theme" id="theme" role="switch" class="form-check-input">
+                    <label for="theme" class="form-check-label"></label>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            </div>
+        </nav>
+        <!-- container-->
+        <di class="container">
+            <div class="row">
+                <div class="col-md-12 text-center mt-5">
+                    <h1 class="display-1 text-success">New Address</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 offset-md-3 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="addressForm">
+                                <div class="form-group mt-2">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" required>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" required>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="mobile">Mobile</label>
+                                    <input type="number" name="mobile" id="mobile" class="form-control" required>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="address">Address</label>
+                                    <input type="address" name="address" id="address" class="form-control" required>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="website">Website</label>
+                                    <input type="url" name="website" id="website" class="form-control" required>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="url">Image Url</label>
+                                    <input type="url" name="image" id="image" class="form-control" required>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <input type="submit" value="Create Contact" class="btn btn-outline-success">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div><!-- container ends-->
+
+        <!-- offcanvas-->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="menu">
+            <div class="offcanvas-header">
+                <h4 class="offcanvas-title">Address Book</h4>
+            <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">   
+                <li class="nav-item">
+                    <a href="/address/new" class="btn btn-outline-success nav-link active">Add New</a>
+                </li>
+            </ul>
+        </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+
+    <script>
+            $x = $('html').attr('data-bs-theme');
+
+             $('html').attr('data-bs-theme', 'dark');
+            $('.form-check-label').text('Dark')
+
+       $('#theme').change(function() {
+        console.log('checked =', this.checked);
+        if(this.checked) {
+            $('html').attr('data-bs-theme', 'light');
+            $('.form-check-label').text('Light')
+        } else {
+            $('html').attr('data-bs-theme', 'dark');
+            $('.form-check-label').text('Dark')
+        }
+       });
+
+    </script>
+    <script>
+ //       let form = document.querySelector('#addressForm');
+
+   //     let name = document.getElementById('name');
+    //    let email = document.getElementById('email');
+      //  let mobile = document.getElementById('mobile');
+     //   let address = document.getElementById('address');
+      //  let image = document.getElementById('image');
+
+       // form.addEventListener('submit',function (e) {
+         //   e.preventDefault();
+           // let data = {
+             //   name: name.value,
+               // email: email.value,
+          //      mobile: mobile.value,
+            //    address: address.value,
+              //  image: image.value,
+           // };
+         //   console.log('user =', data)
+    //    });
+    </script>
+    <script>
+        $('#addressForm').submit(function (e) {
+            e.preventDefault();
+            let data = $(this).serialize();
+            $.ajax({
+                type: 'post',
+                url: `http://localhost:5000/address/add`,
+                data: $(this).serialize(),
+                success: function (response) {
+                    console.log('response =', response)
+                    alert(response.msg);
+                    window.location.href= "/"
+                },
+                error: function (req,status,err) {
+                    // console.log('err =', err)
+                    // console.log('req =', req)
+                    // console.log('status =', status)
+                    alert(req.responseJSON.msg)
+                    // window.location.reload();
+                } 
+            })
+        });
+    </script>
+</body>
+</html>

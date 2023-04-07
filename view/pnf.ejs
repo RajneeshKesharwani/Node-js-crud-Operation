@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid justify-content-between">
+            <!-- Logo/brand Name -->
+            <a href="/" class="navbar-brand">Address Book</a>
+            <!-- right menu -->
+            <div class="d-flex justify-content-evenly">
+                <div class="form-check form-switch me-3 mt-2">
+                <input type="checkbox" name="theme" id="theme" role="switch"
+                class="form-check-input">
+                <label for="theme" class="form-check-label"></label>
+            </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mt-5">
+                <h1 class="display-1 text-danger">Requested Path Not Found</h1>
+                <h2 class="display-2 text-warning">404 Error</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery link  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+
+     <script>
+       $x = $('html').attr('data-bs-theme');
+         //initial theme set 
+        $('html').attr('data-bs-theme','dark');
+        $('.form-check-label').text('Dark') 
+        
+        //switch Logic
+
+       $('#theme').change(function(){
+        console.log('checked =',this.checked);
+        if(this.checked) {
+            $('html').attr('data-bs-theme','light');
+            $('.form-check-label').text('Light');
+        } else{
+            $('html').attr('data-bs-theme','dark');
+            $('.form-check-label').text('Dark')
+        }
+       });
+    </script>
+</body>
+</html>
